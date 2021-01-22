@@ -16,7 +16,11 @@ def commands():
     env = globals()["env"]
     ephemerals = globals()["ephemerals"]
 
-    show_name = ephemerals.get("show", "site-default")
-    suite_path = "$SWEET_SHOW_ROOT/%s/bin" % show_name
+    show_eph = ephemerals.get("show")
+    if show_eph:
+        show_name = show_eph[len(".show-"):]
+    else:
+        show_name = "site-default"
 
+    suite_path = "$SWEET_SHOW_ROOT/%s/bin" % show_name
     env.PATH.prepend(suite_path)
