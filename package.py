@@ -1,7 +1,7 @@
 
 name = "production"
 
-version = "1.0-m1"
+version = "1.1-m1"
 
 description = "Production suite tool provider"
 
@@ -10,6 +10,8 @@ requires = []
 build_command = False
 
 suite_root = "T:/rez-studio/sweet/show"
+# Profile pkg (in memory) name prefix, for differing with regular packages
+mem_pkg_prefix = "_m_show_"
 
 
 def commands():
@@ -32,6 +34,8 @@ def _data():
     this = globals()["this"]
 
     show_name = this.name
+    if show_name.startswith(this.mem_pkg_prefix):
+        show_name = show_name[len(this.mem_pkg_prefix):]
 
     parts = show_name.split("_")
     if parts[0].isdigit():
